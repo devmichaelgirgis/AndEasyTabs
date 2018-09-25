@@ -24,8 +24,8 @@ public class EasyTabs extends RelativeLayout {
     public EasyTabs(Context context) {
         super(context);
         rootView = inflate(context, R.layout.easytabs, this);
-        tabs = (TabLayout) rootView.findViewById(R.id.tabs);
-        pager = (ViewPager) rootView.findViewById(R.id.pager);
+        tabs = rootView.findViewById(R.id.tabs);
+        pager = rootView.findViewById(R.id.pager);
 
 
     }
@@ -33,16 +33,16 @@ public class EasyTabs extends RelativeLayout {
     public EasyTabs(Context context, AttributeSet attrs) {
         super(context, attrs);
         rootView = inflate(context, R.layout.easytabs, this);
-        tabs = (TabLayout) rootView.findViewById(R.id.tabs);
-        pager = (ViewPager) rootView.findViewById(R.id.pager);
+        tabs = rootView.findViewById(R.id.tabs);
+        pager = rootView.findViewById(R.id.pager);
 
     }
 
     public EasyTabs(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         rootView = inflate(context, R.layout.easytabs, this);
-        tabs = (TabLayout) rootView.findViewById(R.id.tabs);
-        pager = (ViewPager) rootView.findViewById(R.id.pager);
+        tabs = rootView.findViewById(R.id.tabs);
+        pager = rootView.findViewById(R.id.pager);
     }
 
 
