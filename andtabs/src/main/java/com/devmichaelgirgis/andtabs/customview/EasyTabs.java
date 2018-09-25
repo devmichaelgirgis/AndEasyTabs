@@ -8,7 +8,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import goldzweigapps.tabs.R;
+import com.devmichaelgirgis.andtabs.R;
+
 
 /**
  * Created by gilgoldzweig on 24/10/2016.
@@ -19,6 +20,7 @@ public class EasyTabs extends RelativeLayout {
     private TabLayout tabs;
     private ViewPager pager;
     private View rootView;
+
     public EasyTabs(Context context) {
         super(context);
         rootView = inflate(context, R.layout.easytabs, this);
@@ -44,11 +46,11 @@ public class EasyTabs extends RelativeLayout {
     }
 
 
-
-    public ViewPager getViewPager(){
+    public ViewPager getViewPager() {
         return pager;
     }
-    public TabLayout getTabLayout(){
+
+    public TabLayout getTabLayout() {
         return tabs;
     }
 }

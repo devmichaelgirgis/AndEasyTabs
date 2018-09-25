@@ -16,17 +16,18 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.devmichaelgirgis.andtabs.Adapters.ViewPagerAdapter;
+import com.devmichaelgirgis.andtabs.Interface.TabsListener;
+import com.devmichaelgirgis.andtabs.Items.AdapterItem;
+import com.devmichaelgirgis.andtabs.Items.TabItem;
+import com.devmichaelgirgis.andtabs.customview.EasyTabs;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import goldzweigapps.tabs.Adapters.ViewPagerAdapter;
-import goldzweigapps.tabs.Interface.TabsListener;
-import goldzweigapps.tabs.Items.AdapterItem;
-import goldzweigapps.tabs.Items.TabItem;
-import goldzweigapps.tabs.customview.EasyTabs;
 
 @SuppressWarnings("UnusedDeclaration")
-public class EasyTabsBuilder{
+public class EasyTabsBuilder {
     private TabLayout StaticTabsLayout;
     private ViewPager StaticViewPager;
     private AppCompatActivity StaticActivity;
@@ -38,7 +39,7 @@ public class EasyTabsBuilder{
     private int[] ResIdIcons;
     private int top = 0;
     private List<Fragment> FragmentList = new ArrayList<>();
-    private List<String>  TitleList = new ArrayList<>();
+    private List<String> TitleList = new ArrayList<>();
 
     public static EasyTabsBuilder with(EasyTabs easyTabs) {
         EasyTabsBuilder builder = new EasyTabsBuilder();
@@ -48,6 +49,7 @@ public class EasyTabsBuilder{
         builder.easyTabs = easyTabs;
         return builder;
     }
+
     public EasyTabsBuilder setCustomTypeface(final Typeface selected) {
         ViewGroup vg = (ViewGroup) StaticTabsLayout.getChildAt(0);
         int tabsCount = vg.getChildCount();
@@ -64,6 +66,7 @@ public class EasyTabsBuilder{
         }
         return this;
     }
+
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     public EasyTabsBuilder setRTLPosition(Boolean state) {
 
@@ -76,19 +79,23 @@ public class EasyTabsBuilder{
         }
         return this;
     }
+
     public EasyTabsBuilder setTextColors(@ColorInt int selectedColor, @ColorInt int unselectedColor) {
         StaticTabsLayout.setTabTextColors(unselectedColor, selectedColor);
         return this;
     }
+
     public EasyTabsBuilder setTabsBackgroundColor(@ColorInt int Color) {
         StaticTabsLayout.setBackgroundColor(Color);
         return this;
     }
+
     public EasyTabsBuilder setIndicatorColor(@ColorInt int Color) {
         StaticTabsLayout.setSelectedTabIndicatorColor(Color);
         return this;
     }
-    public EasyTabsBuilder withListener(final TabsListener tabsListener){
+
+    public EasyTabsBuilder withListener(final TabsListener tabsListener) {
         StaticTabsLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -107,9 +114,10 @@ public class EasyTabsBuilder{
         });
         return this;
     }
+
     public EasyTabsBuilder setIconFading(boolean state) {
         isFade = state;
-        if (Icons != null){
+        if (Icons != null) {
             if (Icons.length == FragmentList.size()) {
                 if (state) {
                     StaticViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -762,7 +770,7 @@ public class EasyTabsBuilder{
 
 
             }
-        }else{
+        } else {
             if (ResIdIcons.length == FragmentList.size()) {
                 if (state) {
                     StaticViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -1419,6 +1427,7 @@ public class EasyTabsBuilder{
 
         return this;
     }
+
     public EasyTabsBuilder setTabLayoutScrollable(Boolean state) {
         if (state) {
             StaticTabsLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
@@ -1430,27 +1439,36 @@ public class EasyTabsBuilder{
         }
         return this;
     }
-    public EasyTabsBuilder hideAllTitles(boolean hide){this.isHidden = hide; return this;}
+
+    public EasyTabsBuilder hideAllTitles(boolean hide) {
+        this.isHidden = hide;
+        return this;
+    }
+
     public EasyTabsBuilder addTabs(TabItem... tabs) {
-        for (TabItem item : tabs){
+        for (TabItem item : tabs) {
             FragmentList.add(item.getFragment());
             TitleList.add(item.getTitle());
         }
         return this;
     }
+
     public EasyTabsBuilder addIcons(Drawable... icons) {
         this.Icons = icons;
         return this;
     }
+
     public EasyTabsBuilder addIcons(int... icons) {
         this.ResIdIcons = icons;
         return this;
-    }   public EasyTabsBuilder changeIconPosition(String position){
+    }
+
+    public EasyTabsBuilder changeIconPosition(String position) {
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
         switch (position) {
             case "left":
                 lp.gravity = Gravity.LEFT;
-                lp.setMargins(0,0, 0, 2);
+                lp.setMargins(0, 0, 0, 2);
                 break;
             case "right":
                 lp.gravity = Gravity.RIGHT;
@@ -1486,11 +1504,13 @@ public class EasyTabsBuilder{
         }
         return this;
     }
+
     public EasyTabsBuilder addTransformation(boolean reverseDrawingOrder, ViewPager.PageTransformer transform) {
         StaticViewPager.setPageTransformer(reverseDrawingOrder, transform);
         return this;
     }
-    public void Build(){
+
+    public void Build() {
         ViewPagerAdapter adapter = new ViewPagerAdapter(StaticActivity.getSupportFragmentManager(), new AdapterItem(FragmentList, TitleList, isHidden));
         StaticViewPager.setAdapter(adapter);
         StaticTabsLayout.setupWithViewPager(StaticViewPager);
@@ -1511,12 +1531,12 @@ public class EasyTabsBuilder{
 
             }
         });
-        if (Icons != null){
-            for (Drawable icon : Icons){
+        if (Icons != null) {
+            for (Drawable icon : Icons) {
 
                 try {
                     StaticTabsLayout.getTabAt(iconsPosition).setIcon(icon);
-                    if (isFade && iconsPosition >= 1){
+                    if (isFade && iconsPosition >= 1) {
                         StaticTabsLayout.getTabAt(iconsPosition).getIcon().setAlpha(128);
                     }
                 } catch (NullPointerException e) {
@@ -1525,11 +1545,11 @@ public class EasyTabsBuilder{
                 iconsPosition++;
             }
         }
-        if (ResIdIcons != null){
-            for (int icon : ResIdIcons){
+        if (ResIdIcons != null) {
+            for (int icon : ResIdIcons) {
                 try {
                     StaticTabsLayout.getTabAt(iconsPosition).setIcon(icon);
-                    if (isFade && iconsPosition >= 1){
+                    if (isFade && iconsPosition >= 1) {
                         StaticTabsLayout.getTabAt(iconsPosition).getIcon().setAlpha(128);
                     }
                 } catch (NullPointerException e) {
@@ -1538,15 +1558,9 @@ public class EasyTabsBuilder{
                 iconsPosition++;
             }
         }
-
 
 
     }
-
-
-
-
-
 
 
 }
