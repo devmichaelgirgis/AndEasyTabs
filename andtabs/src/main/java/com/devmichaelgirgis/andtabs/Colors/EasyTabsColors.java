@@ -1,7 +1,7 @@
 package com.devmichaelgirgis.andtabs.Colors;
 
 import android.graphics.Color;
-import android.support.annotation.ColorInt;
+import androidx.annotation.ColorInt;
 
 /**
  * Created by gilgoldzweig on 13/05/16.
