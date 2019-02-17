@@ -14,15 +14,28 @@
  * limitations under the License.
  */
 
-package com.devmichaelgirgis.andtabs.transforms;
+package com.devmichaelgirgis.andtabs.transforms
 
-import android.view.View;
+import android.view.View
 
-public class EasyStackTransformer extends ABaseTransformer {
+class EasyRotateUpTransformer : ABaseTransformer() {
 
-	@Override
-	protected void onTransform(View view, float position) {
-		view.setTranslationX(position < 0 ? 0f : -view.getWidth() * position);
-	}
+    override val isPagingEnabled: Boolean
+        get() = true
+
+    override fun onTransform(view: View, position: Float) {
+        val width = view.width.toFloat()
+        val rotation = ROT_MOD * position
+
+        view.pivotX = width * 0.5f
+        view.pivotY = 0f
+        view.translationX = 0f
+        view.rotation = rotation
+    }
+
+    companion object {
+
+        private const val ROT_MOD = -15f
+    }
 
 }

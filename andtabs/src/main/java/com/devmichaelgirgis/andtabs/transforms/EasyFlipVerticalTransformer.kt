@@ -14,23 +14,19 @@
  * limitations under the License.
  */
 
-package com.devmichaelgirgis.andtabs.transforms;
+package com.devmichaelgirgis.andtabs.transforms
 
-import android.view.View;
+import android.view.View
 
-public class EasyBackgroundToForegroundTransformer extends ABaseTransformer {
+class EasyFlipVerticalTransformer : ABaseTransformer() {
 
-	@Override
-	protected void onTransform(View view, float position) {
-		final float height = view.getHeight();
-		final float width = view.getWidth();
-		final float scale = min(position < 0 ? 1f : Math.abs(1f - position), 0.5f);
+    override fun onTransform(view: View, position: Float) {
+        val rotation = -180f * position
 
-		view.setScaleX(scale);
-		view.setScaleY(scale);
-		view.setPivotX(width * 0.5f);
-		view.setPivotY(height * 0.5f);
-		view.setTranslationX(position < 0 ? width * position : -width * position * 0.25f);
-	}
+        view.alpha = if (rotation > 90f || rotation < -90f) 0f else 1f
+        view.pivotX = view.width * 0.5f
+        view.pivotY = view.height * 0.5f
+        view.rotationX = rotation
+    }
 
 }

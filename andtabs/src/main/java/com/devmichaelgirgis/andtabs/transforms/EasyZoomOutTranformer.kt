@@ -14,16 +14,22 @@
  * limitations under the License.
  */
 
-package com.devmichaelgirgis.andtabs.transforms;
+package com.devmichaelgirgis.andtabs.transforms
 
-import android.view.View;
+import android.view.View
 
-public class EasyAccordionTransformer extends ABaseTransformer {
+class EasyZoomOutTranformer : ABaseTransformer() {
 
-	@Override
-	protected void onTransform(View view, float position) {
-		view.setPivotX(position < 0 ? 0 : view.getWidth());
-		view.setScaleX(position < 0 ? 1f + position : 1f - position);
-	}
+    override fun onTransform(view: View, position: Float) {
+        val scale = 1f + Math.abs(position)
+        view.scaleX = scale
+        view.scaleY = scale
+        view.pivotX = view.width * 0.5f
+        view.pivotY = view.height * 0.5f
+        view.alpha = if (position < -1f || position > 1f) 0f else 1f - (scale - 1f)
+        if (position == -1f) {
+            view.translationX = (view.width * -1).toFloat()
+        }
+    }
 
 }

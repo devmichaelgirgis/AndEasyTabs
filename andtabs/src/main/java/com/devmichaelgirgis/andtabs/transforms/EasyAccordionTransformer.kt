@@ -14,20 +14,15 @@
  * limitations under the License.
  */
 
-package com.devmichaelgirgis.andtabs.transforms;
+package com.devmichaelgirgis.andtabs.transforms
 
-import android.view.View;
+import android.view.View
 
-public class EasyFlipHorizontalTransformer extends ABaseTransformer {
+class EasyAccordionTransformer : ABaseTransformer() {
 
-	@Override
-	protected void onTransform(View view, float position) {
-		final float rotation = 180f * position;
-
-		view.setAlpha(rotation > 90f || rotation < -90f ? 0 : 1);
-		view.setPivotX(view.getWidth() * 0.5f);
-		view.setPivotY(view.getHeight() * 0.5f);
-		view.setRotationY(rotation);
-	}
+    override fun onTransform(view: View, position: Float) {
+        view.pivotX = (if (position < 0) 0 else view.width).toFloat()
+        view.scaleX = if (position < 0) 1f + position else 1f - position
+    }
 
 }

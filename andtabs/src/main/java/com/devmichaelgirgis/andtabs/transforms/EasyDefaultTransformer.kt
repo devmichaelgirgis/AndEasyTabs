@@ -14,20 +14,15 @@
  * limitations under the License.
  */
 
-package com.devmichaelgirgis.andtabs.transforms;
+package com.devmichaelgirgis.andtabs.transforms
 
-import android.view.View;
+import android.view.View
 
-public class EasyFlipVerticalTransformer extends ABaseTransformer {
+class EasyDefaultTransformer : ABaseTransformer() {
 
-	@Override
-	protected void onTransform(View view, float position) {
-		final float rotation = -180f * position;
+    override val isPagingEnabled: Boolean
+        get() = true
 
-		view.setAlpha(rotation > 90f || rotation < -90f ? 0f : 1f);
-		view.setPivotX(view.getWidth() * 0.5f);
-		view.setPivotY(view.getHeight() * 0.5f);
-		view.setRotationX(rotation);
-	}
+    override fun onTransform(view: View, position: Float) {}
 
 }
