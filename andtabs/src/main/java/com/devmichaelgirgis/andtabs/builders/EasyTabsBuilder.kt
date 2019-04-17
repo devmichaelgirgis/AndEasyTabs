@@ -1299,6 +1299,9 @@ class EasyTabsBuilder {
                                             StaticTabsLayout!!.getTabAt(15)!!.icon!!.alpha = alphaCurrent
                                             StaticTabsLayout!!.getTabAt(16)!!.icon!!.alpha = alphaNext
                                         }
+                                    } public CustomEasyTabBuilder setTabCenterPosition() {
+                                        StaticTabsLayout.setTabMode(TabLayout.MODE_FIXED);
+                                        return this;
                                     }
                                 }
                             }
@@ -1341,6 +1344,13 @@ class EasyTabsBuilder {
         }
         return this
     }
+
+
+    fun setTabCenterPosition(): EasyTabsBuilder {
+        StaticTabsLayout!!.setTabMode(TabLayout.MODE_FIXED)
+        return this
+    }
+
 
     fun hideAllTitles(hide: Boolean): EasyTabsBuilder {
         this.isHidden = hide
