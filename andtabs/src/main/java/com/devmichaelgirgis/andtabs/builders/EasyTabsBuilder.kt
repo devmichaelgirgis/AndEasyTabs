@@ -21,10 +21,8 @@ import com.devmichaelgirgis.andtabs.items.AdapterItem
 import com.devmichaelgirgis.andtabs.items.TabItem
 import com.devmichaelgirgis.andtabs.customview.EasyTabs
 
-import java.util.ArrayList
 import android.R.attr.typeface
-
-
+import java.util.*
 
 
 class EasyTabsBuilder {
@@ -41,7 +39,13 @@ class EasyTabsBuilder {
     private val FragmentList = ArrayList<Fragment>()
     private val TitleList = ArrayList<String>()
 
+    private  var selectedTypeFace: Typeface? =null
+    private var  isAllCaps:Boolean = false
+
     fun setCustomTypeface(selected: Typeface,isAllCaps:Boolean): EasyTabsBuilder {
+        this.selectedTypeFace=selected
+        this.isAllCaps = isAllCaps
+
         val vg = StaticTabsLayout!!.getChildAt(0) as ViewGroup
         val tabsCount = vg.childCount
         for (j in 0 until tabsCount) {
@@ -1412,6 +1416,38 @@ class EasyTabsBuilder {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 StaticViewPager!!.currentItem = tab.position
 
+                val vg = StaticViewPager!!.getChildAt(0) as ViewGroup
+                val tabsCount = vg.childCount
+                for (j in 0 until tabsCount) {
+                    val vgTab = vg.getChildAt(j) as ViewGroup
+                    val tabChildCount = vgTab.childCount
+                    if (j == tab.position) {
+                        for (i in 0 until tabChildCount) {
+                            val tabViewChild = vgTab.getChildAt(i)
+                            if (tabViewChild is TextView) {
+                                {
+                                    tabViewChild.typeface = selectedTypeFace
+                                }
+                                tabViewChild.isAllCaps = isAllCaps
+                            }
+                        }
+                    } else {
+                        for (i in 0 until tabChildCount) {
+                            val tabViewChild = vgTab.getChildAt(i)
+                            if (tabViewChild is TextView) {
+                                if(selectedTypeFace!=null)
+                                {
+                                    tabViewChild.typeface = selectedTypeFace
+                                }
+
+                                tabViewChild.isAllCaps = isAllCaps
+                            }
+                        }
+                    }
+                }
+
+
+
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab) {
@@ -1422,6 +1458,40 @@ class EasyTabsBuilder {
 
             }
         })
+
+        val tab = StaticTabsLayout!!.getTabAt(0)
+        val vg = StaticTabsLayout!!.getChildAt(0) as ViewGroup
+        val tabsCount = vg.childCount
+        for (j in 0 until tabsCount) {
+            val vgTab = vg.getChildAt(j) as ViewGroup
+            val tabChildCount = vgTab.childCount
+            if (j == tab!!.getPosition()) {
+                for (i in 0 until tabChildCount) {
+                    val tabViewChild = vgTab.getChildAt(i)
+                    if (tabViewChild is TextView) {
+                        if(selectedTypeFace!=null)
+                        {
+                            tabViewChild.typeface = selectedTypeFace
+                        }
+
+                        tabViewChild.isAllCaps = isAllCaps
+                    }
+                }
+            } else {
+                for (i in 0 until tabChildCount) {
+                    val tabViewChild = vgTab.getChildAt(i)
+                    if (tabViewChild is TextView) {
+                        if(selectedTypeFace!=null)
+                        {
+                            tabViewChild.typeface = selectedTypeFace
+                        }
+
+                        tabViewChild.isAllCaps = isAllCaps
+                    }
+                }
+            }
+        }
+
         if (Icons != null) {
             for (icon in Icons!!) {
 
