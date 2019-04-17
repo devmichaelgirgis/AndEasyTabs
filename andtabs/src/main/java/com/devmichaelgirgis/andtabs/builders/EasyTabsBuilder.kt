@@ -22,6 +22,9 @@ import com.devmichaelgirgis.andtabs.items.TabItem
 import com.devmichaelgirgis.andtabs.customview.EasyTabs
 
 import java.util.ArrayList
+import android.R.attr.typeface
+
+
 
 
 class EasyTabsBuilder {
@@ -38,7 +41,7 @@ class EasyTabsBuilder {
     private val FragmentList = ArrayList<Fragment>()
     private val TitleList = ArrayList<String>()
 
-    fun setCustomTypeface(selected: Typeface): EasyTabsBuilder {
+    fun setCustomTypeface(selected: Typeface,isAllCaps:Boolean): EasyTabsBuilder {
         val vg = StaticTabsLayout!!.getChildAt(0) as ViewGroup
         val tabsCount = vg.childCount
         for (j in 0 until tabsCount) {
@@ -49,6 +52,7 @@ class EasyTabsBuilder {
 
                 if (tabViewChild is TextView) {
                     tabViewChild.typeface = selected
+                    tabViewChild.isAllCaps = isAllCaps
                 }
             }
         }
