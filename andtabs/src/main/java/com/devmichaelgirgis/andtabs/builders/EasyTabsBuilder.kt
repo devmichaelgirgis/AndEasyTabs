@@ -46,17 +46,21 @@ class EasyTabsBuilder {
         this.selectedTypeFace=selected
         this.isAllCaps = isAllCaps
 
-        val vg = StaticTabsLayout!!.getChildAt(0) as ViewGroup
-        val tabsCount = vg.childCount
-        for (j in 0 until tabsCount) {
-            val vgTab = vg.getChildAt(j) as ViewGroup
-            val tabChildsCount = vgTab.childCount
-            for (i in 0 until tabChildsCount) {
-                val tabViewChild = vgTab.getChildAt(i)
+        val vg = StaticTabsLayout!!.getChildAt(0) as? ViewGroup
+        if(vg!=null) {
+            val tabsCount = vg.childCount
+            for (j in 0 until tabsCount) {
+                val vgTab = vg.getChildAt(j) as? ViewGroup
+                if(vgTab!=null) {
+                    val tabChildsCount = vgTab.childCount
+                    for (i in 0 until tabChildsCount) {
+                        val tabViewChild = vgTab.getChildAt(i)
 
-                if (tabViewChild is TextView) {
-                    tabViewChild.typeface = selected
-                    tabViewChild.isAllCaps = isAllCaps
+                        if (tabViewChild is TextView) {
+                            tabViewChild.typeface = selected
+                            tabViewChild.isAllCaps = isAllCaps
+                        }
+                    }
                 }
             }
         }
@@ -1387,16 +1391,20 @@ class EasyTabsBuilder {
             else -> {
             }
         }
-        val vg = StaticTabsLayout!!.getChildAt(0) as ViewGroup
-        val tabsCount = vg.childCount
-        for (j in 0 until tabsCount) {
-            val vgTab = vg.getChildAt(j) as ViewGroup
-            val tabChildsCount = vgTab.childCount
-            for (i in 0 until tabChildsCount) {
-                val tabViewChild = vgTab.getChildAt(i)
+        val vg = StaticTabsLayout!!.getChildAt(0) as? ViewGroup
+        if(vg!=null) {
+            val tabsCount = vg.childCount
+            for (j in 0 until tabsCount) {
+                val vgTab = vg.getChildAt(j) as? ViewGroup
+                if(vgTab!=null) {
+                    val tabChildsCount = vgTab.childCount
+                    for (i in 0 until tabChildsCount) {
+                        val tabViewChild = vgTab.getChildAt(i)
 
-                if (tabViewChild is ImageView) {
-                    tabViewChild.setLayoutParams(lp)
+                        if (tabViewChild is ImageView) {
+                            tabViewChild.setLayoutParams(lp)
+                        }
+                    }
                 }
             }
         }
@@ -1416,35 +1424,41 @@ class EasyTabsBuilder {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 StaticViewPager!!.currentItem = tab.position
 
-                val vg = StaticViewPager!!.getChildAt(0) as ViewGroup
+                val vg = StaticViewPager!!.getChildAt(0) as? ViewGroup
+                if(vg!=null)
+                {
                 val tabsCount = vg.childCount
                 for (j in 0 until tabsCount) {
-                    val vgTab = vg.getChildAt(j) as ViewGroup
-                    val tabChildCount = vgTab.childCount
-                    if (j == tab.position) {
-                        for (i in 0 until tabChildCount) {
-                            val tabViewChild = vgTab.getChildAt(i)
-                            if (tabViewChild is TextView) {
-                                {
-                                    tabViewChild.typeface = selectedTypeFace
+                    val vgTab = vg.getChildAt(j) as? ViewGroup
+                    if(vgTab!=null) {
+                        val tabChildCount = vgTab.childCount
+                        if (j == tab.position) {
+                            for (i in 0 until tabChildCount) {
+                                val tabViewChild = vgTab.getChildAt(i)
+                                if (tabViewChild is TextView) {
+                                    {
+                                        tabViewChild.typeface = selectedTypeFace
+                                        tabViewChild.typeface = selectedTypeFace
+                                    }
+                                    tabViewChild.isAllCaps = isAllCaps
                                 }
-                                tabViewChild.isAllCaps = isAllCaps
                             }
-                        }
-                    } else {
-                        for (i in 0 until tabChildCount) {
-                            val tabViewChild = vgTab.getChildAt(i)
-                            if (tabViewChild is TextView) {
-                                if(selectedTypeFace!=null)
-                                {
-                                    tabViewChild.typeface = selectedTypeFace
-                                }
+                        } else {
+                            for (i in 0 until tabChildCount) {
+                                val tabViewChild = vgTab.getChildAt(i)
+                                if (tabViewChild is TextView) {
+                                    if (selectedTypeFace != null) {
+                                        tabViewChild.typeface = selectedTypeFace
+                                    }
 
-                                tabViewChild.isAllCaps = isAllCaps
+                                    tabViewChild.isAllCaps = isAllCaps
+                                }
                             }
                         }
                     }
                 }
+                }
+
 
 
 
@@ -1460,33 +1474,35 @@ class EasyTabsBuilder {
         })
 
         val tab = StaticTabsLayout!!.getTabAt(0)
-        val vg = StaticTabsLayout!!.getChildAt(0) as ViewGroup
-        val tabsCount = vg.childCount
-        for (j in 0 until tabsCount) {
-            val vgTab = vg.getChildAt(j) as ViewGroup
-            val tabChildCount = vgTab.childCount
-            if (j == tab!!.getPosition()) {
-                for (i in 0 until tabChildCount) {
-                    val tabViewChild = vgTab.getChildAt(i)
-                    if (tabViewChild is TextView) {
-                        if(selectedTypeFace!=null)
-                        {
-                            tabViewChild.typeface = selectedTypeFace
-                        }
+        val vg = StaticTabsLayout!!.getChildAt(0) as? ViewGroup
+        if(vg!=null) {
+            val tabsCount = vg.childCount
+            for (j in 0 until tabsCount) {
+                val vgTab = vg.getChildAt(j) as? ViewGroup
+                if (vgTab != null) {
+                    val tabChildCount = vgTab.childCount
+                    if (j == tab!!.getPosition()) {
+                        for (i in 0 until tabChildCount) {
+                            val tabViewChild = vgTab.getChildAt(i)
+                            if (tabViewChild is TextView) {
+                                if (selectedTypeFace != null) {
+                                    tabViewChild.typeface = selectedTypeFace
+                                }
 
-                        tabViewChild.isAllCaps = isAllCaps
-                    }
-                }
-            } else {
-                for (i in 0 until tabChildCount) {
-                    val tabViewChild = vgTab.getChildAt(i)
-                    if (tabViewChild is TextView) {
-                        if(selectedTypeFace!=null)
-                        {
-                            tabViewChild.typeface = selectedTypeFace
+                                tabViewChild.isAllCaps = isAllCaps
+                            }
                         }
+                    } else {
+                        for (i in 0 until tabChildCount) {
+                            val tabViewChild = vgTab.getChildAt(i)
+                            if (tabViewChild is TextView) {
+                                if (selectedTypeFace != null) {
+                                    tabViewChild.typeface = selectedTypeFace
+                                }
 
-                        tabViewChild.isAllCaps = isAllCaps
+                                tabViewChild.isAllCaps = isAllCaps
+                            }
+                        }
                     }
                 }
             }
